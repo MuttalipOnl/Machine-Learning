@@ -1,7 +1,7 @@
-# Veriyi i??e aktarma
+# Veriyi ice aktarma
 datasets = read.csv('Data.csv')
 
-# Eksik verilerin bak??m??
+# Eksik verilerin bakimi
 datasets$Age =ifelse(is.na(datasets$Age),
                      ave(datasets$Age, FUN = function(x) mean(x, na.rm = TRUE)),
                      datasets$Age)
@@ -19,7 +19,7 @@ datasets$Purchased = factor(datasets$Purchased,
                           levels = c('No', 'Yes'),
                           labels = c(0, 1))
 
-# Veri k??mesini e??itim k??mesi ve test k??mesine ay??rma
+# Veri k??mesini e??itim k??mesi ve test k??mesine ayirma
 library(caTools)
 set.seed(123)
 split = sample.split(datasets$Purchased, SplitRatio = 0.8)
