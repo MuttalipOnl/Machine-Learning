@@ -1,8 +1,8 @@
-# Multiple Linear Regression
+# Polynomial Linear Regression
 
 # Veriyi ice aktarma
 dataset = read.csv('Position_Salaries.csv')
-dataset =datasets[2:3]
+dataset = dataset[2:3]
 
 
 # Dogrusal Regresyonun veri kumesine yerlestirilmesi
@@ -16,7 +16,8 @@ dataset$Level4 = dataset$Level^4
 poly_reg = lm(formula = Salary ~ .,
               data = dataset)
 
-# Visualising the Linear Regression results
+
+# Linear Regresyon sonuclarini gorsellestirilmesi
 # install.packages('ggplot2')
 library(ggplot2)
 ggplot() +
@@ -28,7 +29,7 @@ ggplot() +
   xlab('Level') +
   ylab('Salary')
 
-# Visualising the Polynomial Regression results
+# Polynomial Regresyon sonuclarini gorsellestirilmesi
 # install.packages('ggplot2')
 library(ggplot2)
 ggplot() +
@@ -40,7 +41,7 @@ ggplot() +
   xlab('Level') +
   ylab('Salary')
 
-# Visualising the Regression Model results (for higher resolution and smoother curve)
+# Regresyon Modeli sonuclarini gorsellestirilmesi (daha yuksek cozunurluk ve daha duzgun egri icin)
 # install.packages('ggplot2')
 library(ggplot2)
 x_grid = seq(min(dataset$Level), max(dataset$Level), 0.1)
@@ -57,10 +58,10 @@ ggplot() +
   xlab('Level') +
   ylab('Salary')
 
-# Predicting a new result with Linear Regression
+# Dogrusal Regresyon ile yeni bir sonuc tahmin etme
 predict(lin_reg, data.frame(Level = 6.5))
 
-# Predicting a new result with Polynomial Regression
+# Polynomial Regresyon ile yeni bir sonuc tahmin etme
 predict(poly_reg, data.frame(Level = 6.5,
                              Level2 = 6.5^2,
                              Level3 = 6.5^3,

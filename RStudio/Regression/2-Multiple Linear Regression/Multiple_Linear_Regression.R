@@ -16,11 +16,28 @@ split = sample.split(datasets$Profit, SplitRatio = 0.8)
 training_set = subset(datasets, split == TRUE)
 test_set = subset(datasets, split == FALSE)
 
-# ??oklu Dogrusal Regresyonun Egitim Setine Yerlestirilmesi
+# Coklu Dogrusal Regresyonun Egitim Setine Yerlestirilmesi
 regressor = lm(formula = Profit ~ ., 
                data = training_set)
-# Test seti sonu??lar??n?? tahmin etmek
+# Test seti sonuclarini tahmin etmek
 y_pred = predict(regressor, newdata = test_set)
+
+# Backward Elimination kullanarak optimal modeli olusturmak
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend + State, 
+               data = datasets)
+summary(regressor)
+
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend, 
+               data = datasets)
+summary(regressor)
+
+regressor = lm(formula = Profit ~ R.D.Spend + Marketing.Spend, 
+               data = datasets)
+summary(regressor)
+
+regressor = lm(formula = Profit ~ R.D.Spend, 
+               data = datasets)
+summary(regressor)
 
 
 
