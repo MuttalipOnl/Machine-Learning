@@ -1,3 +1,5 @@
+# dataset = read.delim('Restaurant_Reviews.tsv', 
+#                          quote = '', stringsAsFactors = FALSE, fileEncoding = "ASCII")
 dataset_ori = read.delim('Restaurant_Reviews.tsv', 
                      quote = '', stringsAsFactors = FALSE, fileEncoding = "ASCII")
 
