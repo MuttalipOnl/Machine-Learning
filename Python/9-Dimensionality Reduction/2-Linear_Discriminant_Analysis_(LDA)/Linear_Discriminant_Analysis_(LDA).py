@@ -40,9 +40,9 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green', 'blue'))(i), label = j)
-plt.title('PCA (Training set)')
-plt.xlabel('PC1')
-plt.ylabel('PC2')
+plt.title('LDA (Training set)')
+plt.xlabel('LD1')
+plt.ylabel('LD2')
 plt.legend()
 plt.show()
 
@@ -57,8 +57,8 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green', 'blue'))(i), label = j)
-plt.title('PCA (Test set)')
-plt.xlabel('PC1')
-plt.ylabel('PC2')
+plt.title('LDA (Test set)')
+plt.xlabel('LD1')
+plt.ylabel('LD2')
 plt.legend()
 plt.show()

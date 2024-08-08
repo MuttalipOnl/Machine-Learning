@@ -107,15 +107,17 @@ def model(model, X_train, y_train, X_test, y_test):
     plt.show()
 
 import xgboost as xgb
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
 import catboost as cb
+
 # XGBoost modeli
 xgb_model = xgb.XGBClassifier(objective='multi:softmax', num_class=len(y_test.unique()), random_state=42)
 model(xgb_model, X_train, y_train, X_test, y_test)
 
-# Random Forest Classifier
-rfc_model = RandomForestClassifier(random_state=42)
-model(rfc_model, X_train, y_train, X_test, y_test)
+# Decision Tree Classifier
+dt_model = DecisionTreeClassifier(random_state=42)
+model(dt_model, X_train, y_train, X_test, y_test)
 
 # CatBoost Classifier
 catboost_model = cb.CatBoostClassifier(verbose=0, random_state=42)
@@ -188,53 +190,3 @@ Tahmin Yapma: Test verisiyle tahminler yapma (predict).
 
 ReLU, nöronun giriş değerini 0'dan küçükse 0 yapar, 0'dan büyükse olduğu gibi bırakır.
 """
-
-# Convolutional Neural Network (CNN)
-# Modelin Tanımlanması:
-cnn_model = tf.keras.Sequential([
-    # Giriş şekli (örnek sayısı, özellik sayısı, kanal sayısı) (CNN için 1D girdi)
-    tf.keras.layers.Reshape((X_train.shape[1], 1), input_shape=(X_train.shape[1],)),
-    tf.keras.layers.Conv1D(filters=64, kernel_size=3, activation='relu'),
-    tf.keras.layers.Conv1D(filters=64, kernel_size=3, activation='relu'),
-    tf.keras.layers.MaxPooling1D(pool_size=2),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(units=128, activation='relu'),
-    tf.keras.layers.Dense(len(le_attack_cat.classes_), activation='softmax')
-])
-
-# Modelin Derlenmesi:
-cnn_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-
-# Modelin Eğitilmesi:
-start_train_time = time.time()
-cnn_model.fit(X_train, y_train, epochs=10, batch_size=32, verbose=1)
-end_train_time = time.time()
-training_time_cnn = end_train_time - start_train_time
-
-# Tahminler Yapılması:
-start_test_time = time.time()
-y_pred_cnn = np.argmax(cnn_model.predict(X_test), axis=-1)
-end_test_time = time.time()
-test_time_cnn = end_test_time - start_test_time
-
-accuracy_cnn = accuracy_score(y_test, y_pred_cnn)
-recall_cnn = recall_score(y_test, y_pred_cnn, average='weighted')
-precision_cnn = precision_score(y_test, y_pred_cnn, average='weighted')
-f1_cnn = f1_score(y_test, y_pred_cnn, average='weighted')
-
-print("\nModel: CNN")
-print(f"Training Time: {training_time_cnn:.4f} seconds")
-print(f"Test Time: {test_time_cnn:.4f} seconds")
-print(f"Accuracy: {accuracy_cnn:.4f}")
-print(f"Recall: {recall_cnn:.4f}")
-print(f"Precision: {precision_cnn:.4f}")
-print(f"F1 Score: {f1_cnn:.4f}")
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred_cnn))
-cm_cnn = confusion_matrix(y_test, y_pred_cnn)
-plt.figure(figsize=(10, 7))
-sns.heatmap(cm_cnn, annot=True, fmt='d', cmap='Blues', xticklabels=le_attack_cat.classes_, yticklabels=le_attack_cat.classes_)
-plt.xlabel('Predicted')
-plt.ylabel('Actual')
-plt.title('Confusion Matrix: CNN')
-plt.show()
